@@ -1,0 +1,54 @@
+Empty
+
+┌──(a_shavkatjon㉿kali)-[~/Downloads]
+└─$ file empty.rar  
+empty.rar: RAR archive data, v5
+                                                                                
+┌──(a_shavkatjon㉿kali)-[~/Downloads]
+└─$ unrar x empty.rar 
+
+UNRAR 7.01 freeware      Copyright (c) 1993-2024 Alexander Roshal
+
+
+Extracting from empty.rar
+
+Extracting  empty.txt                                                 OK 
+All OK
+                                                                                
+py code:
+
+python3 - <<'PY'
+from pathlib import Path
+from PIL import Image
+
+data = Path("empty.txt").read_bytes()
+
+for w in [224,231,238,245,252,259,266,273,280]:
+    h = (len(data) + w - 1) // w
+    print("w=", w, "h=", h)
+
+    for inv in [False, True]:
+        img = Image.new("L", (w, h), 255)
+        px = img.load()
+
+        for i, b in enumerate(data):
+            x = i % w
+            y = i // w
+            if inv:
+                px[x, y] = 255 if b == 0 else 0
+            else:
+                px[x, y] = 0 if b == 0 else 255
+
+        img = img.resize((w*4, h*4), Image.NEAREST)
+
+        border = 20
+        out = Image.new("L", (img.width+2*border, img.height+2*border), 255)
+        out.paste(img, (border, border))
+
+        name = f"try_{w}_{'inv' if inv else 'norm'}.png"
+        out.save(name)
+        print(" saved", name)
+PY
+
+
+QR coddan Flag chiqadi
