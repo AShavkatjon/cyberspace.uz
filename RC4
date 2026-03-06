@@ -1,0 +1,44 @@
+RC4
+
+Base32 bilan kodlangan
+
+decode qilingandan keyin oddiy byte emas, UTF-8 belgilar ketma-ketligi chiqadi
+
+key: nethunter
+
+so‘ng shu belgilar RC4 keystream bilan XOR qilingan
+
+py code:
+
+import base64
+
+s = "YKDVEVWDU4WSXQ4CGRRMFCWCSLBYLQ4QL3BZXQUBYOIMHNAYHTBLJQVUYO6MHIIMMFCA43Z3YOXDXQVAYK6MHFJYYKHXQFODUHB35Q4YYOTVSRTAAPBYVQ4QCRKGTQ4YN5KQHQVSYOZQ===="
+key = "nethunter"
+
+def rc4_keystream(key, n):
+    S = list(range(256))
+    j = 0
+    key = key.encode()
+
+    for i in range(256):
+        j = (j + S[i] + key[i % len(key)]) % 256
+        S[i], S[j] = S[j], S[i]
+
+    i = j = 0
+    out = []
+    for _ in range(n):
+        i = (i + 1) % 256
+        j = (j + S[i]) % 256
+        S[i], S[j] = S[j], S[i]
+        k = S[(S[i] + S[j]) % 256]
+        out.append(k)
+    return out
+
+cipher = base64.b32decode(s).decode("utf-8")
+ks = rc4_keystream(key, len(cipher))
+plain = ''.join(chr(ord(c) ^ k) for c, k in zip(cipher, ks))
+
+
+CYBERSPACE.UZ: CTF: Flag{e63a803a6cc48f966a1967ba003f6f50}
+
+print(plain)
