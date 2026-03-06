@@ -1,0 +1,25 @@
+Vigenere Cipher
+
+Matn Base64 bilan kodlangan.
+
+Decode qilinganda UTF-8 belgilar ketma-ketligi chiqadi.
+
+So‘ng bu belgilar Vigenere usuli bilan shifrlangan.
+
+py code: 
+
+import base64
+
+s = "wqbDksKkeMOEw4bDgHXCpnjCkcOOwrxTwqzCk8KzwojCqVPCncKZwqjCn8OTw5rDq2bCmGPClMKywpRow5fCq8KoZcOIZsKXwrLCmWTCpMOWwqZpw4TCmcOJwq7DhmTCpMOZwqDCmcKYwrA="
+key = "cyb3rsp4c3"
+
+cipher = base64.b64decode(s).decode("utf-8")
+
+plain = ''.join(
+    chr((ord(c) - ord(key[i % len(key)])) % 256)
+    for i, c in enumerate(cipher)
+)
+
+print(plain)
+
+CYBERSPACE.UZ : CTF : Flag{2501925e881e349712c65aff5d12f0e5}
