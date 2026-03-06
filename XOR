@@ -1,0 +1,35 @@
+XOR
+
+Berilgan matn Base32 bilan kodlangan.
+
+Uni decode qilganda oddiy ASCII emas, UTF-8 string chiqadi.
+
+So‘ng har bir belgining ord() qiymati ketma-ket tub sonlar bilan XOR qilingan
+
+py code:
+
+import base64
+
+s = "IFNEOQSZLZAVEVCYGFYHGCYVCV4GSBLHONXRKNIAAIOF4CAXI3BLJQ5IYOXMHMGCV3BK5QU3YKJMFH6CQTBZPQUOYO4MHMWDWLB2VQV3YOJMHHGDSDBIZQUQYOF4JMWFULCL3RF2YSWMLJA="
+
+def primes(n):
+    res = []
+    x = 2
+    while len(res) < n:
+        ok = True
+        for i in range(2, int(x**0.5) + 1):
+            if x % i == 0:
+                ok = False
+                break
+        if ok:
+            res.append(x)
+        x += 1
+    return res
+
+decoded = base64.b32decode(s).decode("utf-8")
+p = primes(len(decoded))
+
+plaintext = ''.join(chr(ord(c) ^ k) for c, k in zip(decoded, p))
+print(plaintext)
+
+CYBERSPACE.UZ : CTF : Flag{5ef97aee938527b19759d199ca03e059}
