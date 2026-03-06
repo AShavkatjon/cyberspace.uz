@@ -1,0 +1,12 @@
+RSA
+yoFjyIwc3YPgqbjgrbXgq6bKgRzgrIngpIbahMa034jKgeChr8WFxrTfiMWFy6nZoOCtq82XxbDgqIrUoeCpndmgybDImsiaybDJsNmg4Kmd4Kmd4Kmd263Ikcmw2aDcisia1KHFsOCoiuCtmsSZ4KmdxJngqIrgqZ3citmg263XrA==
+
+n = 3233 e = 17
+n=3233=61×53
+φ(n)=(61−1)(53−1)=3120
+𝑑=𝑒^(−1)mod(3120)
+d=2753
+Shundan keyin base64 matn decode qilinadi, hosil bo‘lgan Unicode belgilarining har biri ciphertext blok bo‘lib xizmat qiladi.
+m=c^d mod(n)
+
+CYBERSPACE.UZ: CTF: Flag{3be7a02200a777d40a52e3b1c7cb75ad}
